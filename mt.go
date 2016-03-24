@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"log"
 	"net"
 )
@@ -38,15 +40,32 @@ func handleConnection(conn net.Conn) {
 
 	conn.Write([]byte("220 OK\n"))
 
+	buffer := bufio.NewReader(conn)
+
 	for {
-		buffer := make([]byte, 1024)
+		str, _ := buffer.ReadString('\n')
 
-		n, _ := conn.Read(buffer)
-
-		if string(buffer[:n]) == "DATA\r\n" {
+		if str == "DATA\r\n" {
 			break
 		}
 
 		conn.Write([]byte("250 OK\n"))
 	}
+
+	conn.Write([]byte("354 OK\n"))
+
+	buffer = bufio.NewReader(conn)
+
+	for {
+		str, _ := buffer.ReadString('\n')
+
+		if str == ".\r\n" {
+			break
+		}
+
+		fmt.Printf(str)
+	}
+
+	conn.Write([]byte("250 OK\n"))
+	conn.Write([]byte("221 OK\n"))
 }
