@@ -63,7 +63,7 @@ func handleConnection(conn net.Conn) {
 			break
 		}
 
-		fmt.Printf(str)
+		fmt.Print(str)
 	}
 
 	conn.Write([]byte("250 OK\n"))
