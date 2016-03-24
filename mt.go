@@ -1,33 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
-	"os"
 )
 
 const PORT = "2525"
 
 func main() {
-	server := CreateServer(PORT)
+	server := createServer(PORT)
 
 	defer server.Close()
 
 	for {
-		conn, err := server.Accept()
-
-		if err != nil {
-			fmt.Printf("Error accepting: %v\n", err)
-
-			os.Exit(1)
-		}
-
-		go handleConnection(conn)
+		go handleConnection(acceptConnection(server))
 	}
 }
 
-func CreateServer(port string) (net.Listener) {
+func createServer(port string) (net.Listener) {
 	server, err := net.Listen("tcp", ":" + PORT)
 
 	if err != nil {
@@ -35,6 +25,16 @@ func CreateServer(port string) (net.Listener) {
 	}
 
 	return server
+}
+
+func acceptConnection(server net.Listener) net.Conn {
+	conn, err := server.Accept()
+
+	if err != nil {
+		log.Fatalf("Error accepting: %v\n", err)
+	}
+
+	return conn
 }
 
 func handleConnection(conn net.Conn) {
