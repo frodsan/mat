@@ -19,7 +19,7 @@ func main() {
 			log.Fatalf("Error accepting: %v\n", err)
 		}
 
-		handleConnection(conn)
+		go handleConnection(conn)
 	}
 }
 
@@ -35,4 +35,18 @@ func createServer(port string) (net.Listener) {
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
+
+	conn.Write([]byte("220 OK\n"))
+
+	for i := 1; i <= 5; i++ {
+		buffer := make([]byte, 1024)
+
+		n, _ := conn.Read(buffer)
+
+		if string(buffer[:n]) == "DATA\r\n" {
+			break
+		}
+
+		conn.Write([]byte("250 OK\n"))
+	}
 }
