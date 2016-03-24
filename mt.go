@@ -13,7 +13,7 @@ func main() {
 	defer server.Close()
 
 	for {
-		go handleConnection(acceptConnection(server))
+		handleConnection(acceptConnection(server))
 	}
 }
 
