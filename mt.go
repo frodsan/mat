@@ -38,7 +38,7 @@ func handleConnection(conn net.Conn) {
 
 	conn.Write([]byte("220 OK\n"))
 
-	for i := 1; i <= 5; i++ {
+	for {
 		buffer := make([]byte, 1024)
 
 		n, _ := conn.Read(buffer)
