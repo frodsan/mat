@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"os"
 )
@@ -9,11 +10,9 @@ import (
 const PORT = "2525"
 
 func main() {
-	server := NewTCPServer(PORT)
+	server := CreateServer(PORT)
 
 	defer server.Close()
-
-	fmt.Printf("Listening on port %s\n", PORT)
 
 	for {
 		conn, err := server.Accept()
@@ -28,13 +27,11 @@ func main() {
 	}
 }
 
-func NewTCPServer(port string) (net.Listener) {
+func CreateServer(port string) (net.Listener) {
 	server, err := net.Listen("tcp", ":" + PORT)
 
 	if err != nil {
-		fmt.Printf("Error listening to port %s\n", PORT)
-
-		os.Exit(1)
+		log.Fatalf("Error listening to port %s\n", PORT)
 	}
 
 	return server
