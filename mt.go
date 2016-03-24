@@ -9,13 +9,7 @@ import (
 const PORT = "2525"
 
 func main() {
-	server, err := net.Listen("tcp", ":" + PORT)
-
-	if err != nil {
-		fmt.Printf("Error listening to port %s\n", PORT)
-
-		os.Exit(1)
-	}
+	server := NewTCPServer(PORT)
 
 	defer server.Close()
 
@@ -32,6 +26,18 @@ func main() {
 
 		go handleConnection(conn)
 	}
+}
+
+func NewTCPServer(port string) (net.Listener) {
+	server, err := net.Listen("tcp", ":" + PORT)
+
+	if err != nil {
+		fmt.Printf("Error listening to port %s\n", PORT)
+
+		os.Exit(1)
+	}
+
+	return server
 }
 
 func handleConnection(conn net.Conn) {
