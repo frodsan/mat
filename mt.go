@@ -13,7 +13,13 @@ func main() {
 	defer server.Close()
 
 	for {
-		handleConnection(acceptConnection(server))
+		conn, err := server.Accept()
+
+		if err != nil {
+			log.Fatalf("Error accepting: %v\n", err)
+		}
+
+		handleConnection(conn)
 	}
 }
 
@@ -27,15 +33,6 @@ func createServer(port string) (net.Listener) {
 	return server
 }
 
-func acceptConnection(server net.Listener) net.Conn {
-	conn, err := server.Accept()
-
-	if err != nil {
-		log.Fatalf("Error accepting: %v\n", err)
-	}
-
-	return conn
-}
-
 func handleConnection(conn net.Conn) {
+	defer conn.Close()
 }
