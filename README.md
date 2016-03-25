@@ -1,7 +1,7 @@
 mat
 ===
 
-Prints mail to stdout.
+Prints mail to stdout. Ported from [mt](https://github.com/soveran/mt).
 
 Installation
 ------------
