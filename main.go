@@ -12,7 +12,7 @@ const PORT = "2525"
 func main() {
 	server := createServer(PORT)
 
-	fmt.Println("Listening on port %s", PORT)
+	fmt.Println("Listening on port", PORT)
 
 	defer server.Close()
 
