@@ -18,10 +18,11 @@ By default, it binds to port 2525.
 
 ```
 $ mat
-from: frodsan@me.com
-to: hello@frodsan.com
+from: john@doe.com
+to: jane@doe.com
 Reply-To:
 subject: =?utf-8?Q?Hi?=
+# ...
 ```
 
 License
