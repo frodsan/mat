@@ -12,6 +12,8 @@ const PORT = "2525"
 func main() {
 	server := createServer(PORT)
 
+	fmt.Println("Listening on port %s", PORT)
+
 	defer server.Close()
 
 	for {
@@ -56,6 +58,8 @@ func handleConnection(conn net.Conn) {
 
 	buffer = bufio.NewReader(conn)
 
+	fmt.Println("---")
+
 	for {
 		str, _ := buffer.ReadString('\n')
 
@@ -65,6 +69,8 @@ func handleConnection(conn net.Conn) {
 
 		fmt.Print(str)
 	}
+
+	fmt.Println("")
 
 	conn.Write([]byte("250 OK\n"))
 	conn.Write([]byte("221 OK\n"))
