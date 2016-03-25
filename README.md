@@ -1,7 +1,14 @@
 mat
 ===
 
-Prints mail to stdout. Ported from [mt](https://github.com/soveran/mt).
+A little mail tester daemon written in Go.
+
+Ported from [mt](https://github.com/soveran/mt).
+
+Description
+-----------
+
+`mat` fakes a SMTP server and prints incoming emails to stdout.
 
 Installation
 ------------
@@ -13,8 +20,7 @@ go get github.com/frodsan/mat
 Usage
 -----
 
-`mat` fakes a SMTP server and prints incoming emails to stdout.
-By default, it binds to port 2525.
+By default, it uses port 2525.
 
 ```
 $ mat
