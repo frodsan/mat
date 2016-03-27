@@ -56,8 +56,6 @@ func handleConnection(conn net.Conn) {
 
 	conn.Write([]byte("354 OK\n"))
 
-	buffer = bufio.NewReader(conn)
-
 	fmt.Println("---")
 
 	for {
